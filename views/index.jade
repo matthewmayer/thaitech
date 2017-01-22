@@ -1,5 +1,28 @@
 extends layout
-
 block content
-  h1= title
-  p Welcome to #{title}
+  .container
+    h1 Thailand Tech Calendar
+    .row
+        each event in events
+          .vevent.col.s6.m6
+            .card
+              .card-content
+                p.timecircle
+                  span.month #{event.time.format("MMM")}
+                  span.day #{event.time.format("D")}
+                h2.card-title.summary #{event.summary}
+                if event.allday
+                  time.dtstart(title=event.time.format()) #{event.time.format("dddd, MMMM Do YYYY")}
+                else
+                  time #{event.time.format("dddd, MMMM Do YYYY, h:mm a")}
+                .section
+                  p #{event.description}
+                  
+                
+                  address #{event.location}
+                  .tags
+                    each tag in event.tags
+                      .tag.chip #{tag}
+              .card-action
+                a(href="#") Tickets
+
